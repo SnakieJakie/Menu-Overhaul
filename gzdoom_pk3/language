@@ -60,8 +60,8 @@ OB_MO_DEATHMATCHFLAG_FRAGLIMIT = "Frag Limit";
 OB_MO_DEATHMATCHFLAG_TIMELIMIT = "Time Limit (Minutes)";
 
 // Display Settings
-OB_MO_DISPLAY_TITLE = "Display"
-OB_MO_DISPLAY_GRAPHICSETTINGS = "Graphics and Display Settings"
+OB_MO_DISPLAY_TITLE = "Display";
+OB_MO_DISPLAY_GRAPHICSETTINGS = "Graphics and Display Settings";
 
 OB_MO_DISPLAY_APIBACKEND = "API Backend";
 OB_MO_DISPLAY_RENDERER = "Renderer";
