@@ -521,7 +521,7 @@ optionmenu "MODebug"
 
 StaticText "Debug", 1
 Title "$OB_MO_MODEBUG_TITLE"
-SafeCommand "$OB_MO_MODEBUG_CRASHOUTt", "crashout"
+SafeCommand "$OB_MO_MODEBUG_CRASHOUT", "crashout"
 Command "$OB_MO_MODEBUG_CRASH2CONSOLE", "error Damn,That's,Sucks.png"
 Option "$OB_MO_MODEBUG_SOUNDINFO", "noise", "OnOff"
 Command "Print Actors", "profilethinkers"
@@ -627,7 +627,7 @@ Title "$OB_MO_MO_OPTIONS"
 	SafeCommand	"$OPTMNU_RESETTOSAVED",	"reset2saved"
 	SafeCommand	"$OPTMNU_WRITEINI",		"writeini"
  StaticText " "
-	StaticText "OB_MO_OTHERSTUFF"
+Statictext "$OB_MO_OTHEROPTIONS"
 	Submenu "$OS_TITLE", "os_Menu"
 Submenu "$OB_MO_MOCREDITS", "MOCredits"
 }
