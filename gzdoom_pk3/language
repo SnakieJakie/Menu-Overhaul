@@ -112,7 +112,7 @@ OB_MO_MOHARDWARE_MODEINTERPOLATION = "Model Interpolation";
 // Debug menu, oh lord.
 OB_MO_MODEBUG_TITLE = "Debugging";
 OB_MO_MODEBUG_CRASHOUT = "Crash Out";
-OB_MO_MODEBUG_CRASH2CONSOLE = ""Crash to Console";
+OB_MO_MODEBUG_CRASH2CONSOLE = "Crash to Console";
 OB_MO_MODEBUG_SOUNDINFO = "Sound Info";
 OB_MO_MODEBUG_PRINTACTORS = "Print Actors";
 
