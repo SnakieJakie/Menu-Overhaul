@@ -107,7 +107,7 @@ OB_MO_MOGRAPHIC_PARTICLES_TITLE = "Particles";
 // Hardware
 OB_MO_MOHARDWARE_TITLE = "Hardware Settings";
 OB_MO_MOHARDWARE_TEXTURES = "Textures";
-OB_MO_MOHARDWARE_MODEINTERPOLATION "Model Interpolation";    
+OB_MO_MOHARDWARE_MODEINTERPOLATION = "Model Interpolation";    
 
 // Debug menu, oh lord.
 OB_MO_MODEBUG_TITLE = "Debugging";
