@@ -103,7 +103,7 @@ AnimatedTransition
 	TextItem "$MNU_QUITGAME", "q", "QuitMenu"
 }
 LISTMENU "MOOption"
-{
+{MOMenuOptions
 AnimatedTransition
   StaticText 108, 32,  "$OB_MO_OPTIONSTITLE"
 
@@ -534,6 +534,7 @@ StaticText ""
 StaticText ""
 StaticText "Cheats", 1
 ScaleSlider "Fast weapons",			"sv_fastweapons", 0, 2, 1, "None"
+ScaleSlider "Speed Shoes",			"turbo ", 100, 255, 10, "None"
 Command "No clip", "noclip"
 CoMMAND "No clip 2 the cooler version", "noclip2"
 Command "Resurrect", "resurrect"
@@ -618,9 +619,22 @@ StaticText "And the kind people who wrote the many articles on the ZDoom wiki", 
 StaticText "And of course, The ZDoom Team!", Red
 }
 
+OptionMenu "MOMenuOptions"
+{
+Title "$OB_MO_MO_OPTIONS"
+	StaticText "INI File Options"
+	SafeCommand	"$OPTMNU_DEFAULTS",		"reset2defaults"
+	SafeCommand	"$OPTMNU_RESETTOSAVED",	"reset2saved"
+	SafeCommand	"$OPTMNU_WRITEINI",		"writeini"
+ StaticText " "
+	StaticText "OB_MO_OTHERSTUFF"
+	Submenu "$OS_TITLE", "os_Menu"
+Submenu "$OB_MO_MOCREDITS", "MOCredits"
+}
 
 
-// 
+
+
 
 
 

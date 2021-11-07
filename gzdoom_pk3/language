@@ -132,6 +132,31 @@ OB_MO_MODEBUG_PRINTACTORS = "Print Actors";
 
 
 
+// Menu Overhaul Stuff
+OB_MO_MO_OPTIONS = "Menu Overhaul Options";
+
+
+
+
+OB_MO_MOCREDITS = "Menu Overhaul";
+OB_MO_MOZDOOMCREDITS = "ZDoom Credits";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
