@@ -103,7 +103,6 @@ AnimatedTransition
 	TextItem "$MNU_QUITGAME", "q", "QuitMenu"
 }
 LISTMENU "MOOption"
-{MOMenuOptions
 AnimatedTransition
   StaticText 108, 32,  "$OB_MO_OPTIONSTITLE"
 
