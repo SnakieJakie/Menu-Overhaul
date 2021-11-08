@@ -1,8 +1,8 @@
 /*
-	Menu Overhaul 1.0 by Jakie
-	Based off MO's and square's menus.
+	Menu Overhaul, made by Jakie
+	Based off Snap's and Square's menus.
 */
-
+// GZDoom title screen menu code, just to change the options submenu to Menu Overhaul's
 LISTMENU "MainMenu"
 {
 AnimatedTransition
