@@ -54,7 +54,6 @@ OB_MO_MPSETUP_MULTIKILLS = "Multikills messages";
 
 OB_MO_MPSETUP_STARTGAME = "Start Game!";
 
-// I'll just like to say that Ms. Valley from my old elementary school, you suck ass.
 // Deathmatch Flags menu
 OB_MO_DEATHMATCHFLAG_FRAGLIMIT = "Frag Limit";
 OB_MO_DEATHMATCHFLAG_TIMELIMIT = "Time Limit (Minutes)";
