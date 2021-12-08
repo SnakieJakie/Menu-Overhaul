@@ -1,0 +1,507 @@
+/*
+	Menu Overhaul 1.0 by Jakie
+	Based off MO's and square's menus.
+*/
+DEFAULTLISTMENU
+{
+	Font "BigFont", "Untranslated"
+	LineSpacing 20
+}
+
+//-------------------------------------------------------------------------------------------
+//
+// Main Memu
+//
+//-------------------------------------------------------------------------------------------
+
+LISTMENU "MainMenu"
+{
+	Size 320, 200
+	ifgame(Duke, Nam, WW2GI, Redneck, RedneckRides)
+	{
+		position 160, 55
+		Linespacing 20
+		animatedtransition
+		DukeLogo
+		DukeTextItem "$MNU_NEWGAME", "n", "EpisodeMenu"
+		//DukeTextItem "$MNU_NEWGAME", "m", "MultiMenu" // In EDuke this replaces "New Game" when in networking mode. Kept here as a reminder.
+		DukeTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		DukeTextItem "$MNU_OPTIONS", "o", "MOOption"
+		DukeTextItem "$MNU_HELP", "h", "HelpMenu"
+		DukeTextItem "$MNU_CREDITS", "c", "CreditsMenu"
+		DukeTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+	ifgame(Blood)
+	{
+		CaptionItem "Blood"
+		position 160, 45
+		Linespacing 20
+		BloodTextItem "$MNU_NEWGAME", "n", "EpisodeMenu"
+		//BloodTextItem "$MNU_MULTIPLAYER", "m", "MultiMenu"
+		BloodTextItem "$MNU_OPTIONS", "o", "MOOption"
+		BloodTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		BloodTextItem "$MNU_HELP", "h", "HelpMenu"
+		BloodTextItem "$MNU_CREDITS", "c", "CreditsMenu"
+		BloodTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+		BloodDripDrawer
+		animated
+	}
+	ifgame(ShadowWarrior)
+	{
+		Position 55, 32
+		Linespacing 17
+		class SWMainMenu
+		SWLogo
+		SWTextItem "$MNU_NEWGAME", "n", "EpisodeMenu"
+		SWTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		SWTextItem "$MNU_SAVEGAME", "s", "none"
+		SWTextItem "$MNU_OPTIONS", "o", "MOOption"
+		ifnotgame (shareware)
+		{
+			SWTextItem "$MNU_CREDITS", "c", "CreditsMenu"
+		}
+		else
+		{
+			SWTextItem "$MNU_HOWTOORDER", "h", "CreditsMenu"
+		}
+		SWTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+	ifgame(Exhumed)
+	{
+		class ExhumedMainMenu
+		Position 160, 65
+		linespacing 22
+		ExhumedPlasma
+		ExhumedTextItem "$MNU_NEWGAME", "n", "StartGameNoSkill", 0
+		ExhumedTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		ExhumedTextItem "$TXT_EX_MAP00", "m", "StartGameNoSkill", 1
+		ExhumedTextItem "$MNU_OPTIONS", "v", "MOOption"
+		ExhumedTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+}
+
+LISTMENU "IngameMenu"
+{
+	Size 320, 200
+	ifgame(Duke, Nam, WW2GI, Redneck, RedneckRides)
+	{
+		position 160, 55
+		linespacing 18
+		animatedtransition
+		DukeLogo
+		DukeTextItem "$MNU_NEWGAME", "n", "EpisodeMenu"
+		DukeTextItem "$MNU_SAVEGAME", "s", "SaveGameMenu"
+		DukeTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		DukeTextItem "$MNU_OPTIONS", "o", "MOOption"
+		DukeTextItem "$MNU_HELP", "h", "HelpMenu"
+		DukeTextItem "$MNU_ENDGAME", "e", "EndgameMenu"
+		DukeTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+	ifgame(Blood)
+	{
+		position 160, 45
+		CaptionItem "Blood"
+		Linespacing 17
+		BloodTextItem "$MNU_NEWGAME", "n", "EpisodeMenu"
+		BloodTextItem "$MNU_OPTIONS", "o", "MOOption"
+		BloodTextItem "$MNU_SAVEGAME", "s", "SaveGameMenu"
+		BloodTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		BloodTextItem "$MNU_HELP", "h", "HelpMenu"
+		BloodTextItem "$MNU_CREDITS", "c", "CreditsMenu"
+		BloodTextItem "$MNU_ENDGAME", "e", "EndgameMenu"
+		BloodTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+		BloodDripDrawer
+		animated
+	}
+	ifgame(ShadowWarrior)
+	{
+		Position 55, 32
+		Linespacing 17
+		class SWMainMenu
+		SWLogo
+		SWTextItem "$MNU_NEWGAME", "n", "EpisodeMenu"
+		SWTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		SWTextItem "$MNU_SAVEGAME", "s", "SaveGameMenu"
+		SWTextItem "$MNU_OPTIONS", "o", "MOOption"
+		ifnotgame (shareware)
+		{
+			SWTextItem "$MNU_CREDITS", "c", "CreditsMenu"
+		}
+		else
+		{
+			SWTextItem "$MNU_HOWTOORDER", "h", "CreditsMenu"
+		}
+		SWTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+	ifgame(Exhumed)
+	{
+		class ExhumedMainMenu
+		Position 160, 65
+		linespacing 22
+AnimatedTransition
+		ExhumedLogo
+		ExhumedTextItem "$MNU_NEWGAME", "n", "StartGameNoSkill", 0
+		ExhumedTextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+		ExhumedTextItem "SAVE GAME", "S", "SaveGameMenu"
+		ExhumedTextItem "$TXT_EX_MAP00", "m", "StartGameNoSkill", 1
+		ExhumedTextItem "$MNU_OPTIONS", "v", "MOOption"
+		ExhumedTextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+}
+
+
+// https://youtu.be/Nnjwxz7B-OU
+LISTMENU "MOOption"
+{
+	Size 320, 200
+	ifgame(Duke, Nam, WW2GI, Redneck, RedneckRides)
+	{
+  CaptionItem  "Options"
+AnimatedTransition
+Position 108, 64
+		DukeTextItem  "Controls", "C", "MOControls"
+		DukeTextItem "Gameplay", "G", "MOGameplay" 
+		DukeTextItem "Video", "V", "MOVideoSettings"
+		DukeTextItem "Audio", "A", "SoundOptions"
+        DukeTextItem "Debugging", "D", "MODebug"
+        DukeTextItem "Other", "O", "MOMenuOptions"
+	}
+	ifgame(Blood)
+	{
+		CaptionItem "Options"
+		position 160, 45
+		Linespacing 20
+		BloodTextItem  "Controls", "C", "MOControls"
+		BloodTextItem "Gameplay", "G", "MOGameplay" 
+		BloodTextItem "Video", "V", "MOVideoSettings"
+		BloodTextItem "Audio", "A", "SoundOptions"
+        BloodTextItem "Debugging", "D", "MODebug"
+        BloodTextItem "Other", "O", "MOMenuOptions"
+		BloodDripDrawer
+		animated
+	}
+	ifgame(ShadowWarrior)
+	{
+		Position 55, 32
+        CaptionItem "Options"
+		SWTextItem  "Controls", "C", "MOControls"
+		SWTextItem "Gameplay", "G", "MOGameplay" 
+		SWTextItem "Video", "V", "MOVideoSettings"
+		SWTextItem "Audio", "A", "SoundOptions"
+        SWTextItem "Debugging", "D", "MODebug"
+        SWTextItem "Other", "O", "MOMenuOptions"
+	}
+	ifgame(Exhumed)
+	{
+		Position 160, 65
+		Animated
+        CaptionItem "Options"
+		ExhumedTextItem  "Controls", "C", "MOControls"
+		ExhumedTextItem "Gameplay", "G", "MOGameplay" 
+		ExhumedTextItem "Video", "V", "MOVideoSettings"
+		ExhumedTextItem "Audio", "A", "SoundOptions"
+        ExhumedTextItem "Debugging", "D", "MODebug"
+        ExhumedTextItem "Other", "O", "MOMenuOptions"
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+//
+// CONTROLS
+//
+
+OptionMenu "MOControls"
+{
+	Title "Controls"
+	Submenu "Input Binds",			"CustomizeControls"
+	Submenu "Mouse Settings",			"MouseOptions"
+	Submenu "Gamepad Settings",			"JoystickOptions"
+  StaticText ""
+	SafeCommand "Reset key binds defaults",		"resetb2defaults"
+	IfOption(Windows)
+	{
+		Option "$MISCMNU_WINFULLSCREENTOGGLE", "k_allowfullscreentoggle", "OnOff"
+	}
+
+	IfOption(Mac)
+	{
+		Option "$MISCMNU_MACFULLSCREENTOGGLE", "k_allowfullscreentoggle", "OnOff"
+	}
+}
+
+// Gameplay
+OptionMenu "MOGameplay"
+{
+Title "Gameplay"
+Submenu "Player Setup", "NewPlayerMenu"
+	Submenu "Dependent Game Settings",			"GameplayOptions"
+		StaticText ""
+		StaticText "Saving and Loading Options"
+	Option "$MISCMNU_ENABLEAUTOSAVES",			"disableautosave", "Autosave"
+	Option "$MISCMNU_SAVELOADCONFIRMATION",			"saveloadconfirmation", "OnOff"
+	Slider "$MISCMNU_AUTOSAVECOUNT",			"autosavecount", 1, 20, 1, 0
+	Slider "$MISCMNU_QUICKSAVECOUNT",			"quicksavecount", 1, 20, 1, 0
+	ifgame(ShadowWarrior)
+	{
+		StaticText " "
+StaticText "Shadow Warrior Options"
+		Option "$MISCMNU_DARTS",				"sw_darts", "OnOff"
+		Option "$MISCMNU_NINJA",				"sw_ninjahack", "OnOff"
+	}
+}
+
+Optionmenu "MOVideoSettings"
+{
+Title "Video Settings"
+	StaticText "Main Video Settings"
+SubMenu "Display Settings", "MODisplay"
+SubMenu "Graphics Settings", "MOVideoOptions"
+	StaticText ""
+
+
+
+	StaticText "User UI"
+Submenu "Automap Options", "AutomapOptions"
+	
+	Submenu "$OPTMNU_HUD", "HUDOptions"
+	Submenu "$RENDER_OPTIONS", "RenderOptions"
+
+}
+
+
+// https://www.youtube.com/watch?v=fQVhppRP4Wo
+
+
+
+
+
+
+
+
+
+
+Optionmenu "MODisplay"
+{
+Title "Video Options"
+
+
+	Option "API Backend",		"vid_preferbackend", "PreferBackend"
+Option "Test New Renderer",       "testnewrenderer", "YesNo"
+	Option "$VIDMNU_FULLSCREEN",		"vid_fullscreen", "YesNo"
+
+	IfOption(Mac)
+	{
+		Option "$VIDMNU_HIDPI",			"vid_hidpi", "YesNo"
+	}
+	IfOption(Windows)
+	{
+		Option "$DSPLYMNU_GPUSWITCH",			vid_gpuswitch, "GPUSwitch"
+	}
+
+	Option "$VIDMNU_FORCEASPECT",		"vid_aspect", "ForceRatios"
+	Option "$VIDMNU_CROPASPECT",		"vid_cropaspect", "CropAspect"
+	Option "$VIDMNU_SCALEMODE",			"vid_scalemode", "ScaleModes"
+	Slider "$VIDMNU_SCALEFACTOR",		"vid_scalefactor", 0.25, 2.0, 0.25, 2
+StaticText ""
+	StaticText "FPS Controller"
+	Option "$DSPLYMNU_VSYNC",					"vid_vsync", "OnOff"
+	Option "$VIDMNU_MAXFPS",					"vid_maxfps", "MaxFps"
+StaticText ""
+	StaticText "Resolution Settings"
+	TextField "$VIDMNU_CUSTOMX", menu_resolution_custom_width
+	TextField "$VIDMNU_CUSTOMY", menu_resolution_custom_height
+	Option "$VIDMNU_USELINEAR", "vid_scale_linear", "YesNo"
+	StaticText ""
+	Command "$VIDMNU_APPLYW", "menu_resolution_commit_changes 0"
+	Command "$VIDMNU_APPLYFS", "menu_resolution_commit_changes 1"
+	StaticText ""
+
+	SubMenu "$VIDMNU_RESPRESET", CustomResolutionMenu
+
+
+
+ 
+}
+
+
+
+
+
+OptionMenu "MOVideoOptions" protected
+{
+	Title "$DSPLYMNU_TITLE"
+
+	Submenu "$GLMNU_POSTPROCESS", "PostProcessMenu"
+	Submenu "$GLTEXMNU_TITLE", "GLTextureGLOptions"
+	StaticText ""
+
+	Slider "$DSPLYMNU_GAMMA",					"vid_gamma",					0.75, 3.0, 0.05, 2
+	Slider "$DSPLYMNU_BRIGHTNESS",				"vid_brightness",				-0.8,0.8, 0.05,2
+	Slider "$DSPLYMNU_CONTRAST",				"vid_contrast",	   				0.1, 3.0, 0.1
+	Slider "$DSPLYMNU_SATURATION",				"vid_saturation",  				-3.0, 3.0, 0.25, 2
+	Slider "$DSPLYMNU_AMBIENT_LIGHT",			"r_ambientlight",  				0.5, 4.0, 0.1
+
+	StaticText ""
+	Option "$DSPLYMNU_VOXELS",					"r_voxels",					"OnOff"
+	Option "$DSPLYMNU_SHADOWS",					"r_shadows",					"OnOff"
+	Option "$DSPLYMNU_SLOPETILT",				"cl_slopetilting",					"OnOff"
+	Option "$GLPREFMNU_ENVIRONMENTMAPMIRROR",	gl_mirror_envmap,				"OnOff"
+	ifnotgame(Blood, Exhumed)
+	{
+		Option "$DSPLYMNU_VIEWBOB",					"cl_viewbob",					"OnOff"
+	}
+	ifgame(Blood)
+	{
+		Option "$DSPLYMNU_VIEWBOB",					"cl_viewvbob",					"OnOff"
+		Option "$DSPLYMNU_VIEWSWAY",				"cl_viewhbob",					"OnOff"
+	}
+	StaticText ""
+	Slider "$DSPLYMNU_FOV",						"r_fov",					60, 130, 10, 1
+	Option "FPS Counter",		"VID_FPS",				"YesNo"
+
+	StaticText ""
+	Option "$GLTEXMNU_TEXFILTER",		gl_texture_filter,				"FilterModes"
+	Option "$GLTEXMNU_ANISOTROPIC",		gl_texture_filter_anisotropic,				"Anisotropy"
+	StaticText " "
+	Option "$GLPREFMNU_MULTISAMPLE", 			gl_multisample,					"Multisample"
+
+}
+
+
+
+
+
+
+
+
+
+OptionMenu "PostProcessMenu"
+{
+	Title "$GLMNU_POSTPROCESS"
+	Position -36
+
+	StaticText ""
+	Option      "Bloom",  "gl_bloom", "OnOff"
+	Slider "Bloom Amount",   "gl_bloom_amount", -2.0, 2.0, 1.0
+	Option "$GLPREFMNU_LENS",		 			gl_lens,						"OnOff"
+	Slider "$GLPREFMNU_SSAO_PORTALS",			gl_ssao_portals,				0.0, 4.0, 1.0, 0
+	Option "$GLPREFMNU_FXAA",		 			gl_fxaa,						"FXAAQuality"
+	Option "$GLPREFMNU_DITHER",		 			gl_dither_bpc,					"DitherModes"
+	Option "$GLPREFMNU_TONEMAP", 				gl_tonemap,						"TonemapModes"
+	StaticText " "
+	Slider "$GLPREFMNU_PALTONEMAPPOWER",		gl_paltonemap_powtable,			0.2, 3.0, 0.1, 1
+	Option "$GLPREFMNU_PALTONEMAPORDER",		gl_paltonemap_reverselookup,	"LookupOrder"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OptionMenu "MOMenuOptions"
+{
+Title "Other Options"
+	StaticText "INI File Options"
+	SafeCommand	"$OPTMNU_DEFAULTS",		"reset2defaults"
+	SafeCommand	"$OPTMNU_RESETTOSAVED",	"reset2saved"
+	SafeCommand	"$OPTMNU_WRITEINI",		"writeini"
+ StaticText " "
+Statictext "Other Options"
+	Submenu "$OS_TITLE", "os_Menu"
+Submenu "Engine Settings", "OptionsMenu"
+Submenu "Menu Overhaul Credits", "MOCredits"
+	Submenu "$MNU_ENGINECREDITS",		"EngineCredits"
+}
+
+
+
+
+
+
+
+// Debugging
+
+optionmenu "MODebug"
+{
+
+
+StaticText "Debug"
+Title "Debuging"
+SafeCommand "Crash Out", "crashout"
+Command "Crash to Console", "error Damn,That's,Sucks.png"
+
+StaticText ""
+StaticText ""
+StaticText "Cheats"
+Command "No clip", "noclip"
+Command "God mode", "GOD"
+StaticText ""
+StaticText ""
+StaticText "Give cheats"
+Command "Give all", "give all"
+Command "Give weapons", "give weapons"
+Command "Give ammo", "give ammo"
+Command "Give armor", "give armor"
+Command "Give keys", "give keys"
+StaticText ""
+StaticText ""
+}
+
+
+Optionmenu "MOCredits"
+{
+Title "Menu Overhaul Credits"
+StaticText "Menu Overhaul, developed and maintained by Jakie", LightBlue
+StaticText "Menu originally based off Square's and Snap The Sentinel's Menu", White
+StaticText ""
+StaticText ""
+StaticText "The Adventures of Square made by BigBrik Games", Purple
+StaticText "Snap The Sentinel's menu made by TehRealSalt and SeventhSentinel", Orange
+StaticText ""
+StaticText ""
+StaticText "Special Thanks to..", White
+StaticText "Our satisfied customers"
+StaticText "NIGHTS108", Purple
+StaticText "BulletTimeTails", Yellow
+StaticText "doomed_deimos", Orange
+StaticText "egap98", Orange
+
+StaticText ""
+StaticText ""
+StaticText "And our general supporters"
+StaticText "Enzlor", DarkGreen
+StaticText "KrazeeTobi", Yellow
+StaticText "ProperMax", Blue
+StaticText "Koroart0", Blue
+StaticText "Gyrotor", Blue 
+StaticText "Saturn_Sent", LightBlue
+StaticText ""
+StaticText ""
+StaticText "Everyone who downloaded the Menu OverHaul Pre-releases and tested the beta versions", White
+StaticText "And the kind people who wrote the many articles on the ZDoom wiki", White
+StaticText "And of course, the ZDoom", Red
+StaticText "and Raze Team!", Cyan
+}
+
+
+
+
+
+// 
