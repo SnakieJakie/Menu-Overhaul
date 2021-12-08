@@ -1,0 +1,738 @@
+/*
+	Menu Overhaul, made by Jakie
+	Based off Snap's and Square's menus.
+*/
+// GZDoom title screen menu code, just to change the options submenu to Menu Overhaul's
+LISTMENU "MainMenu"
+{
+AnimatedTransition
+	IfGame(Doom, Chex)
+	{
+		LineSpacing 16	// This must account for some single-graphic replacements, so it cannot be widened
+		StaticPatch 94, 2, "M_DOOM"
+		Position 97, 72
+		IfOption(ReadThis)
+		{
+			Position 97, 64
+		}
+	}
+	IfGame(Strife)
+	{
+		StaticPatch 84, 2, "M_STRIFE"
+		Position 97, 45
+	}
+	IfGame(Heretic)
+	{
+		StaticPatch 88, 0, "M_HTIC"
+		StaticPatch 40, 10, "M_SKL01"
+		StaticPatch 232, 10, "M_SKL00"
+		Position 110, 56
+	}
+	IfGame(Hexen)
+	{
+		StaticPatch 88, 0, "M_HTIC"
+		StaticPatch 37, 80, "FBULB0"
+		StaticPatch 278, 80, "FBULA0"
+		Position 110, 56
+	}
+
+	IfGame(Doom, Strife, Chex)
+	{
+		PatchItem "M_NGAME", "n", "PlayerclassMenu"
+		ifOption(SwapMenu)
+		{
+			PatchItem "M_LOADG", "l", "LoadGameMenu", 0
+			PatchItem "M_SAVEG", "s", "SaveGameMenu",0
+			PatchItem "M_OPTION","o", "MOOption", 0
+		}
+		else
+		{
+			PatchItem "M_OPTION","o", "MOOption", 0
+			PatchItem "M_LOADG", "l", "LoadGameMenu", 0
+			PatchItem "M_SAVEG", "s", "SaveGameMenu", 0
+		}
+		ifOption(ReadThis)
+		{
+			PatchItem "M_RDTHIS","r", "ReadThisMenu", 0
+		}
+		PatchItem "M_QUITG", "q", "QuitMenu", 0
+	}
+
+	IfGame(Heretic, Hexen)
+	{
+		TextItem "$MNU_NEWGAME", "n", "PlayerclassMenu"
+		TextItem "$MNU_OPTIONS", "o", "MOOption"
+		TextItem "$MNU_GAMEFILES", "g", "GameFilesMenu"
+		TextItem "$MNU_INFO", "i", "ReadThisMenu"
+		TextItem "$MNU_QUITGAME", "q", "QuitMenu"
+	}
+}
+
+//-------------------------------------------------------------------------------------------
+//
+// Text only variant of the main menu for Doom, Strife and Chex Quest to be used with localized content.
+//
+//-------------------------------------------------------------------------------------------
+
+LISTMENU "MainMenuTextOnly"
+{
+AnimatedTransition
+	IfGame(Doom, Chex)
+	{
+		StaticPatch 94, 2, "M_DOOM"
+		Position 97, 72
+		IfOption(ReadThis)
+		{
+			Position 97, 64
+		}
+	}
+	IfGame(Strife)
+	{
+		StaticPatch 84, 2, "M_STRIFE"
+		Position 97, 45
+	}
+	
+	TextItem "$MNU_NEWGAME", "n", "PlayerclassMenu"
+	TextItem "$MNU_OPTIONS", "o", "MOOption"
+	TextItem "$MNU_LOADGAME", "l", "LoadGameMenu"
+	TextItem "$MNU_SAVEGAME", "s", "SaveGameMenu"
+	IfOption(ReadThis)
+	{
+		TextItem "$MNU_INFO", "i", "ReadThisMenu"
+	}
+	TextItem "$MNU_QUITGAME", "q", "QuitMenu"
+}
+LISTMENU "MOOption"
+{
+AnimatedTransition
+  StaticText 108, 32,  "$OB_MO_OPTIONSTITLE"
+
+Position 108, 64
+ TextItem "Controls", "c", "MOControls" 
+ TextItem "Gameplay", "g", "MOGameplay" 
+  TextItem "Video", "v", "MOVideoSettings"
+   TextItem "Audio", "a", "SoundOptions"
+    TextItem "Debug", "d", "MODebug"
+	  TextItem "Other", "o", "MOMenuOptions"
+}
+//
+// CONTROLS
+//
+
+OptionMenu "MOControls"
+{
+	Title "$OB_MO_CONTROLS_TITLE"
+	Submenu "$OB_MO_INPUTBINDS",			"CustomizeControls"
+	Submenu "$OB_MO_MOUSESETTINGS",			"MouseOptions"
+	Submenu "$OB_MO_GAMEPADSETTINGS",			"JoystickOptions"
+  StaticText ""
+	SafeCommand "$OPTMNU_DEFAULTS",		"resetb2defaults"
+
+	IfOption(Windows)
+	{
+		Option "$MISCMNU_MERGEKEYS", "k_mergekeys", "OnOff"
+		Option "$MISCMNU_WINFULLSCREENTOGGLE", "k_allowfullscreentoggle", "OnOff"
+	}
+
+	IfOption(Mac)
+	{
+		Option "$MISCMNU_MACFULLSCREENTOGGLE", "k_allowfullscreentoggle", "OnOff"
+	}
+}
+
+
+// Gameplay, oh this is a mess
+OptionMenu "MOGameplay"
+{
+Title "$OB_MO_GAMEPLAYTITLE"
+Statictext "$OB_MO_FLAGS_COMPAT_TITLE", White
+Submenu "$OB_MO_COMPATIBILITYOPTIONS", "CompatibilityOptions"
+Submenu "Gameplay Flags", "MOFlagforGameplay"
+Statictext ""
+	Submenu "$OPTMNU_PLAYER",			"NewPlayerMenu"
+Statictext ""
+	Submenu "$OPTMNU_NETWORK",			"NetworkOptions"
+Statictext ""
+Submenu "$OB_MO_MP_MATCH_SETUP", "MOMultiplayerSetup"
+Statictext ""
+Statictext "$OB_MO_CHEATOPTIONS", White
+	Option "$MISCMNU_NOCHEATS",					"nocheats", "OnOff"
+	Option "$MISCMNU_ALLCHEATS",				"allcheats", "OnOff"
+
+
+	Statictext ""
+Statictext "$OB_MO_SAVELOADOPTIONS", White
+	Option "$MISCMNU_ENABLEAUTOSAVES",			"disableautosave", "Autosave"
+	Option "$MISCMNU_SAVELOADCONFIRMATION",		"saveloadconfirmation", "OnOff"
+	Slider "$MISCMNU_AUTOSAVECOUNT",			"autosavecount", 1, 20, 1, 0
+	Option "$MISCMNU_QUICKSAVEROTATION",		"quicksaverotation", "OnOff"
+	Slider "$MISCMNU_QUICKSAVECOUNT",			"quicksaverotationcount", 1, 20, 1, 0
+    Option "Saves have a screenshot in them (Uses more space)", "storesavepic", "OnOff"
+
+
+	Statictext ""
+Statictext "Intermission Options", White
+	Option "$MISCMNU_CLEANSTAT",				"wi_cleantextscale", "OnOff"
+	Option "$MISCMNU_WIPERCENT",				"wi_percents", "OnOff"
+	Option "$MISCMNU_ALWAYSTALLY",				"sv_alwaystally", "AlwaysTally"
+Option "$OB_MO_INTERMISSION_TOTALTIME",                            "wi_showtotaltime", "OnOff"
+
+
+Statictext ""
+Statictext "$OB_MO_OTHEROPTIONS", White
+	Option "$MISCMNU_QUERYIWAD",				"queryiwad", "OnOff"
+	Option "$MISCMNU_DEHLOAD",					"dehload", "dehopt"
+	Option "$MISCMNU_ENABLESCRIPTSCREENSHOTS",	"enablescriptscreenshot", "OnOff"
+	Option "$MISCMNU_QUICKEXIT",				"m_quickexit", "OnOff"
+	IfOption(Windows)
+	{
+		Option	"$DSPLYMNU_SHOWENDOOM",			"showendoom", "Endoom"
+	}
+}
+
+OptionMenu "MOMultiplayerSetup"
+{
+Class "MOToolTipMenu"
+Title "$OB_MO_MPSETUP_TITLE"
+Statictext ""
+Statictext ""
+Statictext "$OB_MO_MPSETUP_GAMEMODES", White
+Command "$OB_MO_MPSETUP_COOP", "deathmatch 0"
+  Command "$OB_MO_MPSETUP_DEATHMATCH", "deathmatch 1"
+Statictext ""
+Statictext ""
+Statictext "$OB_MO_MPSETUP_BOTSTITLE", White
+Command "$OB_MO_MPSETUP_ADDBOT", "addbot"
+Command "$OB_MO_MPSETUP_REMOVEALLBOTS", "removebots"
+Command "$OB_MO_MPSETUP_LISTBOTS", "listbots"
+Option "Next Bot's color", "bot_next_color", "BotNextColor"
+Statictext ""
+Statictext ""
+Statictext "$OB_MO_OTHEROPTIONS", White
+
+Option "$OB_MO_MPSETUP_BBA", "cl_bbannounce", "OnOff"
+Option "$OB_MO_MPSETUP_KILLINGSPREES", "cl_showsprees", "OnOff"
+Option "$OB_MO_MPSETUP_MULTIKILLS", "cl_showmultikills", "OnOff"
+Statictext ""
+Command "Start Game! ", "map *"
+}
+
+
+
+OptionValue "BotNextColor"
+{
+	0, "Green"
+	1, "Gray"
+	2, "Indigo"
+	3, "Deep Red"
+	4, "White"
+	5, "Bright Brown"
+	6, "Red"
+	7, "Blue"
+	8, "Dark Blue"
+	9, "Yellow"
+	10, "Bleached Bone"
+	11, "Use Bot's defined color"
+}
+
+
+
+OptionMenu "MOFlagforGameplay"
+{
+Class "MOToolTipMenu"
+Title "Gameplay Flags"
+Statictext ""
+Statictext "General Options", White
+SubMenu "Allows and Don't Allows", "MOGameplayAllows"
+SubMenu "Cheat-Like", "MOGameplayCheatLike"
+SubMenu "no", "MOGameplayNoes"
+SubMenu "Other Options", "MOGameplayOtherOptions"
+Statictext ""
+SubMenu "Deathmatch Flags", "MODMGamplayFlags"
+SubMenu "Co-op Flags", "CoopOptions"
+
+}
+
+
+
+Optionmenu "MODMGamplayFlags"
+{
+Title "Deathmatch Options"
+Statictext ""
+Statictext ""
+	ScaleSlider "Frag Limit",			"fraglimit", 0,1000, 5, "None"
+	ScaleSlider "Time Limit (Minutes)",			"timelimit", 0, 600, 1, "None"
+	Option "$GMPLYMNU_TEAMPLAY",				"teamplay",	"OnOff"
+	Slider	"$GMPLYMNU_TEAMDAMAGE",				"teamdamage", 0, 1, 0.05,2
+	Option "$GMPLYMNU_WEAPONSSTAY",				"sv_weaponstay", "YesNo"
+	Option "$GMPLYMNU_ALLOWPOWERUPS",			"sv_noitems", "NoYes"
+	Option "$GMPLYMNU_ALLOWHEALTH",				"sv_nohealth", "NoYes"
+	Option "$GMPLYMNU_ALLOWARMOR",				"sv_noarmor", "NoYes"
+	Option "$GMPLYMNU_SPAWNFARTHEST",			"sv_spawnfarthest", "YesNo"
+	Option "$GMPLYMNU_SAMEMAP",					"sv_samelevel", "YesNo"
+	Option "$GMPLYMNU_FORCERESPAWN",			"sv_forcerespawn", "YesNo"
+	Option "$GMPLYMNU_ALLOWEXIT",				"sv_noexit", "NoYes"
+	Option "$GMPLYMNU_BARRELSRESPAWN",			"sv_barrelrespawn", "YesNo"
+	Option "$GMPLYMNU_RESPAWNPROTECTION",		"sv_respawnprotect", "YesNo"
+	Option "$GMPLYMNU_LOSEFRAG",				"sv_losefrag", "YesNo"
+	Option "$GMPLYMNU_KEEPFRAGS",				"sv_keepfrags", "YesNo"
+	Option "$GMPLYMNU_NOTEAMSWITCH",			"sv_noteamswitch", "YesNo"
+Class "GameplayMenu"
+}
+
+
+
+OptionMenu "MOGameplayAllows"
+{
+Class "MOToolTipMenu"
+Title "Allows and Don't Allows"
+Statictext ""
+Statictext ""
+	MOToolTipOption "$GMPLYMNU_ALLOWSUICIDE", "Allows a player to use the 'Kill'  command. In case they want to have a stofe.",		"sv_disallowsuicide", "NoYes"
+	Option "$GMPLYMNU_ALLOWJUMP",  "sv_jump", "JumpCrouchFreeLook"
+	MOToolTipOption "$GMPLYMNU_ALLOWCROUCH", "Turing this off will make you have serious leg problems, turn off for a more vanilla feel.",				"sv_crouch", "JumpCrouchFreeLook"
+	MOToolTipOption "$GMPLYMNU_ALLOWFREELOOK", "Turing this off will break your spine, if you're play a Doom-based game, turn this off for a more vanilla feel.", 		"sv_freelook", "JumpCrouchFreeLook"
+	MOToolTipOption "$GMPLYMNU_ALLOWFOV", "Allows a player to change their FOV.",				"sv_nofov", "NoYes"
+	MOToolTipOption "$GMPLYMNU_BFGFREEAIM", 	"Allows a player to fire the BFG up or down.",		"sv_nobfgaim", "NoYes"
+   MOToolTipOption "$GMPLYMNU_ALLOWAUTOMAP", "Allows a player view their AutoMap.",			"sv_noautomap", "NoYes"
+	MOToolTipOption "$GMPLYMNU_AUTOMAPALLIES", "Allows a player to see allies on their AutoMap",			"sv_noautomapallies", "NoYes"
+	MOToolTipOption "$GMPLYMNU_ALLOWSPYING", "Allows a player to become a stalker",				"sv_disallowspying", "NoYes"
+	MOToolTipOption "$GMPLYMNU_CHASECAM", "Allows a player to pretend that they're in Sonic Robo Blast 2",				"sv_chasecam", "YesNo"
+}
+// https://www.youtube.com/watch?v=fQVhppRP4Wo
+OptionMenu "MOGameplayCheatLike"
+{
+Class "MOToolTipMenu"
+Title "Cheat-like"
+Statictext ""
+Statictext ""
+Option "SV_CHEATS",			"SV_CHEATS", "YesNo"
+	Option "$GMPLYMNU_INFINITEAMMO",			"sv_infiniteammo", "YesNo"
+	Option "$GMPLYMNU_INFINITEINVENTORY",		"sv_infiniteinventory", "YesNo"
+   MOToolTipOption "Unlimited Pickup", "Allows a player to pick up ammo past the normal maximum amount for that ammo type",			"sv_unlimited_pickup", "NoYes"
+MOToolTipScaleSlider "Air Control", "Allows a player to control their movement in the air, like in Zandronum",			"sv_aircontrol",  0.00, 30.00, 0.10, "None, like in Doom", "None, you're fricking dead if you're in the air."
+ScaleSlider "Fast weapons",			"sv_fastweapons", 0, 2, 1, "None"
+ScaleSlider "Speed Shoes",			"turbo", 100, 255, 10, "None"
+
+}
+
+OptionMenu "MOGameplayNoes"
+{
+Class "MOToolTipMenu"
+Title "no"
+Statictext ""
+Statictext ""
+	Option "$GMPLYMNU_NOMONSTERS",				"sv_nomonsters", "YesNo"
+	Option "$GMPLYMNU_NOMONSTERSTOEXIT",		"sv_killallmonsters", "YesNo"
+	Option "$GMPLYMNU_MONSTERSRESPAWN",			"sv_monsterrespawn", "YesNo"
+	Option "$GMPLYMNU_NORESPAWN",				"sv_norespawn", "YesNo"
+	Option "$GMPLYMNU_NOAUTOAIM",				"sv_noautoaim", "NoYes"
+	MOToolTipOption "Don't count dDamage_End monsters", "This makes monsters don't get tallied if they're in a sector like E1M8's ending.",		"sv_nocountendmonst", "NoYes"
+
+}
+
+Optionmenu "MOGameplayOtherOptions"
+{
+Class "MOToolTipMenu"
+Title "Other Options"
+Statictext ""
+Statictext ""
+	Option "$GMPLYMNU_FALLINGDAMAGE",			"sv_fallingdamage", "FallingDM"
+	Option "$GMPLYMNU_ALWAYSSPAWNMULTI",		"sv_alwaysspawnmulti", "YesNo"
+	Option "$GMPLYMNU_ITEMSRESPAWN",			"sv_itemrespawn", "YesNo"
+	Option "$GMPLYMNU_SUPERRESPAWN",			"sv_respawnsuper", "YesNo"
+	Option "$GMPLYMNU_FASTMONSTERS",			"sv_fastmonsters", "YesNo"
+	Option "$GMPLYMNU_INSTANTREACTION",			"sv_instantreaction", "YesNo"
+	Option "$GMPLYMNU_SMARTAUTOAIM",			"sv_smartaim", "SmartAim"
+    	Option "$GMPLYMNU_KILLBOSSSPAWNS",			"sv_killbossmonst", "YesNo"
+}
+// https://youtu.be/Nnjwxz7B-OU
+
+OptionMenu "MOPostProcessMenu" 
+{
+	Class "MOToolTipMenu"
+	Title "$GLMNU_POSTPROCESS"
+	Position -36
+
+	StaticText ""
+	MOToolTipOption      "Bloom",    "Reproduces an imaging artifact of real-world cameras, affects performance.",    "gl_bloom", "OnOff"
+	MOToolTipScaleSlider "Bloom Amount",       "Reproduces an imaging artifact of real-world cameras, affects performance.",       "gl_bloom_amount", -2.0, 2.0, 1.0, "$SCALEMNU_USEUI", "$SCALEMNU_USEFS"
+	MOToolTipOption      "Ambient Occlusion",    "Adds a shadowing effect to surfaces, affects performance",    "gl_ssao",						"SSAOModes"
+	Option "$GLPREFMNU_LENS",		 			gl_lens,						"OnOff"
+	Slider "$GLPREFMNU_SSAO_PORTALS",			gl_ssao_portals,				0.0, 4.0, 1.0, 0
+	Option "$GLPREFMNU_FXAA",		 			gl_fxaa,						"FXAAQuality"
+	Option "$GLPREFMNU_DITHER",		 			gl_dither_bpc,					"DitherModes"
+	Option "$GLPREFMNU_TONEMAP", 				gl_tonemap,						"TonemapModes"
+	StaticText " "
+	Slider "$GLPREFMNU_PALTONEMAPPOWER",		gl_paltonemap_powtable,			0.2, 3.0, 0.1, 1
+	Option "$GLPREFMNU_PALTONEMAPORDER",		gl_paltonemap_reverselookup,	"LookupOrder"
+}
+
+
+
+
+//Video Settings
+
+
+Optionmenu "MOVideoSettings"
+{
+Title "Video Settings"
+	StaticText "Main Video Settings", White
+SubMenu "Display Settings", "MODisplay"
+SubMenu "Graphics Settings", "MOGraphics"
+	StaticText ""
+
+
+
+	StaticText "User UI", White
+	Submenu "UI Scaling",				"ScalingOptions"
+Submenu "Hud Options", "MOHUDOptions"
+Submenu "Automap Options", "AutomapOptions"
+	Submenu "$HUDMNU_MESSAGE", 				"MOMessageOptions"
+	Submenu "$HUDMNU_FLASH", 				"FlashOptions"
+
+
+
+}
+
+
+
+
+
+
+// Video And Display Options
+
+Optionmenu "MODisplay"
+{
+Title "$OB_MO_DISPLAY_TITLE"
+StaticText ""
+
+	Option "API Backend",		"vid_preferbackend", "PreferBackend"
+	Option "$OB_MO_DISPLAY_RENDERER",		"vid_rendermode", "RenderMode"
+	Option "$VIDMNU_FULLSCREEN",		"vid_fullscreen", "YesNo"
+
+	IfOption(Mac)
+	{
+		Option "$VIDMNU_HIDPI",			"vid_hidpi", "YesNo"
+	}
+	IfOption(Windows)
+	{
+		Option "$DSPLYMNU_GPUSWITCH",			vid_gpuswitch, "GPUSwitch"
+	}
+
+	Option "$VIDMNU_FORCEASPECT",		"vid_aspect", "ForceRatios"
+	Option "$VIDMNU_CROPASPECT",		"vid_cropaspect", "CropAspect"
+	Option "$VIDMNU_SCALEMODE",			"vid_scalemode", "ScaleModes"
+	Slider "$VIDMNU_SCALEFACTOR",		"vid_scalefactor", 0.25, 2.0, 0.25, 2
+StaticText ""
+	StaticText "$OB_MO_DISPLAY_FPSCONTROLLER"
+	Option "$DSPLYMNU_VSYNC",					"vid_vsync", "OnOff"
+	Option "$VIDMNU_MAXFPS",					"vid_maxfps", "MaxFps"
+	Option "$DSPLYMNU_CAPFPS",					"cl_capfps", "OffOn"
+	Option "FPS Counter",					"vid_fps", "OffOn"
+StaticText ""
+	StaticText "$OB_MO_DISPLAY_RESOLUTION"
+	TextField "$VIDMNU_CUSTOMX", menu_resolution_custom_width
+	TextField "$VIDMNU_CUSTOMY", menu_resolution_custom_height
+	Option "$VIDMNU_USELINEAR", "vid_scale_linear", "YesNo"
+	StaticText ""
+	Command "$VIDMNU_APPLYW", "menu_resolution_commit_changes 0"
+	Command "$VIDMNU_APPLYFS", "menu_resolution_commit_changes 1"
+	StaticText ""
+
+	SubMenu "$VIDMNU_RESPRESET", CustomResolutionMenu
+
+
+
+ 
+}
+
+
+
+
+
+
+
+
+
+Optionmenu "MOGraphics"
+{
+Title "Graphics Settings"
+StaticText ""
+	StaticText "Rendering"
+Submenu "Hardware Rendering Settings", "MOHardware"
+Submenu "Software Rendering Settings", 			"SWROptions"
+	Submenu "Dynamic Lighting",			"GLLightOptions"
+	Submenu "$GLMNU_POSTPROCESS",				"MOPostProcessMenu"
+	StaticText ""
+Statictext "General Stuff", White
+
+	Slider "$DSPLYMNU_SCREENSIZE",				"screenblocks", 				3.0, 12.0, 1.0, 0
+	Slider "$DSPLYMNU_FOV",						"fov",    75.0, 120.0, 0.1, 1
+	Slider "$DSPLYMNU_GAMMA",					"vid_gamma",					0.75, 3.0, 0.05, 2
+	Slider "$DSPLYMNU_BRIGHTNESS",				"vid_brightness",				-0.8,0.8, 0.05,2
+	Slider "$DSPLYMNU_CONTRAST",				"vid_contrast",	   				0.1, 3.0, 0.1
+	Slider "$DSPLYMNU_SATURATION",				"vid_saturation",  				-3.0, 3.0, 0.25, 2
+	Option "$DSPLYMNU_DRAWFUZZ",				"r_drawfuzz", "Fuzziness"
+	Option "$DSPLYMNU_OLDTRANS",				"r_vanillatrans", "VanillaTrans"
+	Slider "$DSPLYMNU_TRANSSOUL",				"transsouls", 0.25, 1.0, 0.05, 2
+	Option "$DSPLYMNU_CUSTOMINVERTMAP",			"cl_customizeinvulmap", "OnOff"
+	ColorPicker "$DSPLYMNU_CUSTOMINVERTC1",		"cl_custominvulmapcolor1"
+	ColorPicker "$DSPLYMNU_CUSTOMINVERTC2",		"cl_custominvulmapcolor2"
+Option "$DSPLYMNU_SPRITESHADOW",			"r_actorspriteshadow", "SpriteShadowModes"
+Option "$DSPLYMNU_NOMONSTERINTERPOLATION",	"nomonsterinterpolation", "NoYes"
+Option "$DSPLYMNU_WIPETYPE",				"wipetype", "Wipes"
+	Slider "Blood Flash",                        "blood_fade_scalar", 0.25, 1.0, 0.05, 2
+	Slider "Pick-up Flash",                      "pickup_fade_scalar", 0.25, 1.0, 0.05, 2
+	Option "Draw First Person Weapon Sprites",			"r_drawplayersprites", "OnOff"
+	Option "Mirrors",                      "r_drawmirrors", "OnOff"
+	Option "Translucency",               "r_drawtrans", "OnOff"
+	Option "Voxels",                     "r_drawvoxels", "OnOff"
+	Option "$DSPLYMNU_FAKECONTRAST",			"r_fakecontrast", "Contrast"
+	Option "Fog Boundaries",                     "r_fogboundary", "OnOff"
+	Option "FullBight Overrides Colored Sectors", "r_fullbrightignoresectorcolor", "OnOff"
+	Option "3D Floors",                           "r_3dfloors", "OnOff"
+	Option "3D Sky Boxes",                           "r_skyboxes", "OnOff"
+	
+	
+	StaticText ""
+	
+	StaticText "Camera", White 	
+Option "$DSPLYMNU_TELEZOOM",				"telezoom", "OnOff"
+	Slider "Earth Quake Intensity",			"r_quakeintensity", 0, 1.0, 0.05, 2
+	
+	
+	StaticText ""
+	
+    StaticText "Decals and Particles", White
+	Slider "$DSPLYMNU_MAXDECALS",				"cl_maxdecals", 0, 10000, 100, 0
+	Option "Blood Spalts",                "cl_bloodsplats", "OnOff"
+	Option "Missiles Scorch Marks",                "cl_missiledecals", "NoYes"
+	Option "$DSPLYMNU_ROCKETTRAILS",			"cl_rockettrails", "RocketTrailTypes"
+	Option "$DSPLYMNU_BLOODTYPE",				"cl_bloodtype", "BloodTypes"
+	Option "$DSPLYMNU_PUFFTYPE",				"cl_pufftype", "PuffTypes"
+	Option "Particles",                          "r_particles", "OnOff"
+	Slider "$DSPLYMNU_MAXPARTICLES",			"r_maxparticles", 100, 10000, 100, 0
+}
+
+
+
+
+
+Optionmenu "MOHardware"
+{
+
+	Title "Hardware Settings"
+	Submenu "$DSPLYMNU_VKOPT",			"VKOptions"
+	Submenu "$GLPREFMNU_VRMODE",				"VR3DMenu"
+	Submenu "$GLMNU_TEXOPT", 			"GLTextureGLOptions"
+StaticText ""
+	Option "Textures",			"GL_TEXTURE",					"OnOff"
+Option "Model Interpolate", "gl_interpolate_model_frames", "OnOff"
+	Option "$GLPREFMNU_SECLIGHTMODE",			gl_lightmode,					"LightingModes"
+	Option "$GLPREFMNU_SWLMBANDED",				gl_bandedswlight,				"OnOff"
+	Option "$GLPREFMNU_FOGMODE",				gl_fogmode,						"FogMode"
+	Option "$GLPREFMNU_FOGFORCEFULLBRIGHT",		gl_brightfog,					"YesNo"
+	Slider "$GLPREFMNU_WPNLIGHTSTR",			gl_weaponlight,					0,32, 2
+	Option "$GLPREFMNU_ENVIRONMENTMAPMIRROR",	gl_mirror_envmap,				"OnOff"
+	Option "$GLPREFMNU_ENV",					gl_enhanced_nightvision,		"OnOff"
+	Option "$GLPREFMNU_ENVSTEALTH",				gl_enhanced_nv_stealth,			"EnhancedStealth"
+	Option "$GLPREFMNU_SPRCLIP",				gl_spriteclip,					"SpriteclipModes"
+	Option "$GLPREFMNU_SPRBLEND",				gl_sprite_blend,				"OnOff"
+	Option "$GLPREFMNU_FUZZSTYLE",				gl_fuzztype,					"FuzzStyle"
+	Option "$GLPREFMNU_SPRBILLBOARD",			gl_billboard_mode,				"BillboardModes"
+	Option "$GLPREFMNU_SPRBILLFACECAMERA",		gl_billboard_faces_camera,		"OnOff"
+	Option "$GLPREFMNU_PARTICLESTYLE",			gl_particles_style,				"Particles"
+	Option "$GLPREFMNU_RENDERQUALITY",			gl_seamless,					"Precision"
+	Slider "$GLPREFMNU_MENUBLUR",				gl_menu_blur, 0, 5.0, 0.5, 2
+	Option "$GLPREFMNU_MULTISAMPLE", 			gl_multisample,					"Multisample"
+
+	}
+
+Optionmenu "MOHUDOptions"
+{ 
+	Title "$HUDMNU_TITLE"
+	Submenu "$HUDMNU_ALTHUD",				"AltHudOptions"
+	Submenu "$DSPLYMNU_SCOREBOARD", 		"ScoreboardOptions"
+	Submenu "$HUDMNU_FONTOPTIONS",			"FontOptions"
+	StaticText " "
+	StaticText "Crosshair Options", White
+	Option "$HUDMNU_CROSSHAIRON",			"crosshairon", "OnOff"
+	Option "$HUDMNU_CROSSHAIR",				"crosshair", "Crosshairs"
+	Option "$HUDMNU_FORCECROSSHAIR",		"crosshairforce", "OnOff"
+	Option "$HUDMNU_GROWCROSSHAIR",			"crosshairgrow", "OnOff"
+	ColorPicker "$HUDMNU_CROSSHAIRCOLOR", 	"crosshaircolor"
+	Option "$HUDMNU_CROSSHAIRHEALTH",		"crosshairhealth", "CrosshairHealthTypes"
+	Slider "$HUDMNU_CROSSHAIRSCALE",		"crosshairscale", 0.0, 2.0, 0.05, 2
+	StaticText " "
+	StaticText "Weapon Bobbing", White
+	Slider "$DSPLYMNU_MOVEBOB",				"movebob", 0, 1.0, 0.05, 2
+	Slider "$DSPLYMNU_STILLBOB",			"stillbob", 0, 1.0, 0.05, 2
+	Slider "$DSPLYMNU_BOBSPEED",			"wbobspeed", 0, 2.0, 0.1
+	Slider "$DSPLYMNU_BOBFIRE",				"wbobfire", 0, 1.0, 0.1
+	StaticText " "
+	StaticText "Other Options", White
+	Slider "$DSPLYMNU_MENUDIM",					"dimamount", 0, 1.0, 0.05, 2
+	ColorPicker "$DSPLYMNU_DIMCOLOR",			"dimcolor"
+	Option "$HUDMNU_NAMETAGS",				"displaynametags", "DisplayTagsTypes"
+	Option "$HUDMNU_NAMETAGCOLOR",			"nametagcolor", "TextColors", "displaynametags"
+	Option "$HUDMNU_OLDOUCH",				"st_oldouch", "OnOff"
+}
+Optionmenu "MOMessageOptions"
+{
+	Title 	"$MSGMNU_TITLE"
+	Option "$OPTMNU_LANGUAGE",					"language", "LanguageOptions"
+	Option "$MSGMNU_SHOWMESSAGES",				"show_messages", "OnOff"
+	Option "$MSGMNU_SHOWOBITUARIES",			"show_obituaries", "OnOff"
+	Option "$MSGMNU_SHOWSECRETS",				"cl_showsecretmessage", "OnOff"
+	Option "$MSGMNU_MESSAGELEVEL", 				"msg", "MessageLevels"
+	Option "$MSGMNU_DEVELOPER", 				"developer", "DevMessageLevels"
+	Option "$MSGMNU_CENTERMESSAGES",			"con_centernotify", "OnOff"
+	Option "$MSGMNU_PULSEMESSAGES",				"con_pulsetext", "OnOff"
+	Option "$MSGMNU_SUBTITLES",					"inter_subtitles", "OnOff"
+	StaticText " "
+	StaticText "$MSGMNU_MESSAGECOLORS", 1
+	StaticText " "
+	Option "$MSGMNU_ITEMPICKUP",				"msg0color", "TextColors"
+	Option "$MSGMNU_OBITUARIES",				"msg1color", "TextColors"
+	Option "$MSGMNU_CRITICALMESSAGES",			"msg2color", "TextColors"
+	Option "$MSGMNU_CHATMESSAGES",				"msg3color", "TextColors"
+	Option "$MSGMNU_TEAMMESSAGES",				"msg4color", "TextColors"
+	Option "$MSGMNU_CENTEREDMESSAGES",			"msgmidcolor", "TextColors"
+	StaticText " "
+	Option "$MSGMNU_SCREENSHOTMESSAGES",		"screenshot_quiet",	"OffOn"
+	Option "$MSGMNU_LONGSAVEMESSAGES",			"longsavemessages",	"OnOff"
+}
+
+
+
+// Debugging
+
+optionmenu "MODebug"
+{
+
+
+StaticText "Debug", 1
+Title "Debugging"
+StaticText "Crash Team Commanding", White
+SafeCommand "Crash Out", "crashout"
+Command "Crash to Console", "error Damn,That's,Sucks.png"
+
+
+Option "Dot FPS counter", "ticker", "OnOff"
+
+StaticText ""
+StaticText "Info Printers", White
+Command "Print Actors", "profilethinkers"
+Option "Print spawned things while loading into a map", "dumpspawnedthings" , "OnOff"
+Option "Print position", "idmypos", "OnOff"
+Option "Print FraggleScript log", "script_debug", "OnOff"
+Option "Sound Info", "noise", "OnOff"
+StaticText ""
+StaticText ""
+StaticText "Cheats", White
+Command "No clip", "noclip"
+CoMMAND "No clip 2 the cooler version", "noclip2"
+Command "Resurrect", "resurrect"
+Command "Become HeXen", "kill"
+Command "Kill Every actor on the map", "kill monsters"
+Command "Kill every Baddie on the map", "kill baddies"
+Command "Kill what you're looking", "mdk"
+Command "Thaw", "thaw"
+Command "Monster fear", "anubis"
+Command "Fly", "fly"
+Command "Freeze", "Freeze"
+Command "No target", "notarget"
+Command "Tome of Power", "powerup"
+Command "Morphme", "morphme"
+Command "The beat-a-game Button!", "finishgame"
+Command "Next Map", "nextmap"
+Command "Next Secret", "nextsecret"
+StaticText ""
+StaticText ""
+StaticText "God modes", White
+Command "God mode", "GOD"
+Command "God mode 2, the cooler version", "GOD2"
+Command "Indestructible hit point", "buddha"
+Command "Indestructible hit point 2, the cooler version", "buddha2"
+Command "IDDQD Mode", "iddqd"
+StaticText ""
+StaticText ""
+StaticText "Give cheats", White
+Command "Give all", "give all"
+Command "Give everything", "give everything"
+Command "Give backpack", "give backpack"
+Command "Give full health", "give health"
+Command "Give weapons", "give weapons"
+Command "Give ammo", "give ammo"
+Command "Give armor", "give armor"
+Command "Give keys", "give keys"
+StaticText ""
+StaticText ""
+StaticText "Take cheats", White
+Command "Take all", "Take all"
+Command "Take everything", "Take everything"
+Command "Take backpack", "Take backpack"
+Command "Take full health", "Take health"
+Command "Take weapons", "Take weapons"
+Command "Take ammo", "Take ammo"
+Command "Take armor", "Take armor"
+Command "Take keys", "Take keys"
+StaticText ""
+StaticText ""
+StaticText ""
+}
+
+
+Optionmenu "MOCredits"
+{
+Title "Menu Overhaul Credits"
+StaticText "Menu Overhaul, developed and maintained by Jakie", LightBlue
+StaticText "Menu originally based off Square's and Snap The Sentinel's Menu", White
+StaticText ""
+StaticText ""
+StaticText "The Adventures of Square made by BigBrik Games", Purple
+StaticText "Snap The Sentinel's menu made by TehRealSalt and SeventhSentinel", Orange
+StaticText ""
+StaticText ""
+StaticText "Menu ToolTip Code", White
+StaticText "Nash Muhandes", Green
+StaticText ""
+StaticText ""
+StaticText "Special Thanks to..", White
+StaticText "Our satisfied customers"
+StaticText "NIGHTS108", Purple
+StaticText "BulletTimeTails", Yellow
+StaticText "doomed_deimos", Orange
+StaticText "egap98", Orange
+
+StaticText ""
+StaticText ""
+StaticText "And our general supporters", White
+StaticText "Enzlor", DarkGreen
+StaticText "KrazeeTobi", Yellow
+StaticText "ProperMax", Blue
+StaticText "Koroart0", Blue
+StaticText "Gyrotor", Blue 
+StaticText "Saturn_Sent", LightBlue
+StaticText ""
+StaticText ""
+StaticText "Everyone who downloaded the Menu OverHaul Pre-releases and tested the beta versions", White
+StaticText "And the kind people who wrote the many articles on the ZDoom wiki", White
+StaticText "And of course, the ZDoom team!", Red
+}
+
+OptionMenu "MOMenuOptions"
+{
+Title "Other Options"
+	StaticText "INI File Options", White
+	SafeCommand	"$OPTMNU_DEFAULTS",		"reset2defaults"
+	SafeCommand	"$OPTMNU_RESETTOSAVED",	"reset2saved"
+	SafeCommand	"$OPTMNU_WRITEINI",		"writeini"
+ StaticText " "
+Statictext "$OB_MO_OTHEROPTIONS", White
+	Submenu "$OS_TITLE", "os_Menu"
+Submenu "Engine Settings", "OptionsMenu"
+Submenu "Menu Overhaul Credits", "MOCredits"
+
+}

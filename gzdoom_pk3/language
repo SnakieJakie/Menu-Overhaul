@@ -1,0 +1,86 @@
+//ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+[enu default]
+
+// Main options menu
+// Play Strife btw
+OB_MO_OPTIONSTITLE = "Options";
+OB_MO_CONTROLSMENU = "Controls";
+OB_MO_DISPLAYMENU = "Display";
+OB_MO_GAMEPLAYMENU = "Gameplay";
+OB_MO_AUDIOMENU = "Audio";
+OB_MO_DEBUGMENU = "Debugging";
+OB_MO_MOOPTIONS = "Menu Overhaul Options";
+
+// Controls Menu
+OB_MO_CONTROLS_TITLE = "Controls";
+
+OB_MO_INPUTBINDS = "Input Binds";
+OB_MO_MOUSESETTINGS = "Mouse Settings";
+OB_MO_GAMEPADSETTINGS = "Gamepad Settings";
+
+// Gameplay, oh boy here comes the hard part
+OB_MO_GAMEPLAYTITLE = "Gameplay";
+
+OB_MO_FLAGS_COMPAT_TITLE = "Gameplay Flags and Compatibility Options";
+OB_MO_COMPATIBILITYOPTIONS = "Compatibility Options";
+OB_MO_GENERAL_FLAGS = "General Flags";
+OB_MO_DEATHMATCH_FLAGS = "Deathmatch Flags";
+OB_MO_COOP_FLAGS = "Co-op Flags";
+
+OB_MO_MP_MATCH_SETUP = "Multiplayer Match Setup";
+
+OB_MO_CHEATOPTIONS = "Cheat Options";
+OB_MO_SAVELOADOPTIONS = "Saving and Loading Options";
+
+OB_MO_INTERMISSION_OPTIONS = "Intermission";
+OB_MO_INTERMISSION_TOTALTIME = "Total Time";
+
+OB_MO_OTHEROPTIONS = "Other Options";
+// Hey that wasn't so hard!
+// Multiplayer Match Setup
+OB_MO_MPSETUP_TITLE = "Multiplayer Match Setup";
+OB_MO_MPSETUP_GAMEMODES = "Game Modes";
+
+OB_MO_MPSETUP_COOP = "Co-op";
+OB_MO_MPSETUP_DEATHMATCH = "Deathmatch";
+OB_MO_MPSETUP_BOTSTITLE = "ZCajun Bots";
+OB_MO_MPSETUP_ADDBOT = "Add Bot";
+OB_MO_MPSETUP_REMOVEALLBOTS = "Remove All Bots";
+OB_MO_MPSETUP_LISTBOTS = "List Bots";
+
+OB_MO_MPSETUP_BBA = "BloodBath Announcer";
+OB_MO_MPSETUP_KILLINGSPREES = "Killing sprees messages";
+OB_MO_MPSETUP_MULTIKILLS = "Multikills messages";
+
+OB_MO_MPSETUP_STARTGAME = "Start Game!";
+
+// I'll just like to say that Ms. Valley from my old elementary school, you suck ass.
+// Deathmatch Flags menu
+OB_MO_DEATHMATCHFLAG_FRAGLIMIT = "Frag Limit";
+OB_MO_DEATHMATCHFLAG_TIMELIMIT = "Time Limit (Minutes)";
+
+// Display Settings
+OB_MO_DISPLAY_TITLE = "Display";
+OB_MO_DISPLAY_GRAPHICSETTINGS = "Graphics and Display Settings";
+
+OB_MO_DISPLAY_APIBACKEND = "API Backend";
+OB_MO_DISPLAY_RENDERER = "Renderer";
+OB_MO_DISPLAY_FPSCONTROLLER = "FPS Controller";
+OB_MO_DISPLAY_RESOLUTION = "Resolution Settings";
+
+// MOGraphics
+OB_MO_MOGRAPHIC_TITLE = "Graphics Settings";
+
+OB_MO_MOGRAPHIC_USERUI = "User UI";
+
+OB_MO_MOGRAPHIC_HUDOPTIONS = "HUD Options";
+
+OB_MO_MOGRAPHIC_RENDERING = "Rendering";
+OB_MO_MOGRAPHIC_HARDWARESETTINGS = "Hardware Rendering Settings";
+OB_MO_MOGRAPHIC_SOFTWARESETTINGS = "Software Rendering Settings";
+
+OB_MO_MOGRAPHIC_GENERALSTUFF = "General Stuff";
+
+OB_MO_MOGRAPHIC_GENERALSTUFF_BLOODFLASH = "Blood Flash";
+OB_MO_MOGRAPHIC_GENERALSTUFF_PICKUPFLASH = "Pick-up Flash"; // Yeah this is where i'll end for tonight. 11/7/21 at 2:57 AM.
+
