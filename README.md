@@ -1,4 +1,4 @@
-# Menu-Overhaul
+# Menu Overhaul
 Simple addon for the GZDoom and Raze source ports that significantly overhauls their menus.
 
 
