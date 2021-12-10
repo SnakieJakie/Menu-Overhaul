@@ -147,7 +147,7 @@ OptionMenu "MOGameplay"
 Title "$OB_MO_GAMEPLAYTITLE"
 Statictext "$OB_MO_FLAGS_COMPAT_TITLE", White
 Submenu "$OB_MO_COMPATIBILITYOPTIONS", "CompatibilityOptions"
-Submenu "Gameplay Flags", "MOFlagforGameplay"
+Submenu "$OB_MO_GENERAL_FLAGS", "MOFlagforGameplay"
 Statictext ""
 	Submenu "$OPTMNU_PLAYER",			"NewPlayerMenu"
 Statictext ""
@@ -171,7 +171,7 @@ Statictext "$OB_MO_SAVELOADOPTIONS", White
 
 
 	Statictext ""
-Statictext "Intermission Options", White
+Statictext "$OB_MO_INTERMISSION_OPTIONS", White
 	Option "$MISCMNU_CLEANSTAT",				"wi_cleantextscale", "OnOff"
 	Option "$MISCMNU_WIPERCENT",				"wi_percents", "OnOff"
 	Option "$MISCMNU_ALWAYSTALLY",				"sv_alwaystally", "AlwaysTally"
@@ -192,7 +192,6 @@ Statictext "$OB_MO_OTHEROPTIONS", White
 
 OptionMenu "MOMultiplayerSetup"
 {
-Class "MOToolTipMenu"
 Title "$OB_MO_MPSETUP_TITLE"
 Statictext ""
 Statictext ""
@@ -288,16 +287,16 @@ Class "MOToolTipMenu"
 Title "Allows and Don't Allows"
 Statictext ""
 Statictext ""
-	MOToolTipOption "$GMPLYMNU_ALLOWSUICIDE", "Allows a player to use the 'Kill'  command. In case they want to have a stofe.",		"sv_disallowsuicide", "NoYes"
+	MOToolTipOption "$GMPLYMNU_ALLOWSUICIDE", "$OB_MO_GAMEFLAGS_WHENOOF_TOOLTIP",		"sv_disallowsuicide", "NoYes"
 	Option "$GMPLYMNU_ALLOWJUMP",  "sv_jump", "JumpCrouchFreeLook"
-	MOToolTipOption "$GMPLYMNU_ALLOWCROUCH", "Turing this off will make you have serious leg problems, turn off for a more vanilla feel.",				"sv_crouch", "JumpCrouchFreeLook"
-	MOToolTipOption "$GMPLYMNU_ALLOWFREELOOK", "Turing this off will break your spine, if you're play a Doom-based game, turn this off for a more vanilla feel.", 		"sv_freelook", "JumpCrouchFreeLook"
-	MOToolTipOption "$GMPLYMNU_ALLOWFOV", "Allows a player to change their FOV.",				"sv_nofov", "NoYes"
-	MOToolTipOption "$GMPLYMNU_BFGFREEAIM", 	"Allows a player to fire the BFG up or down.",		"sv_nobfgaim", "NoYes"
-   MOToolTipOption "$GMPLYMNU_ALLOWAUTOMAP", "Allows a player view their AutoMap.",			"sv_noautomap", "NoYes"
-	MOToolTipOption "$GMPLYMNU_AUTOMAPALLIES", "Allows a player to see allies on their AutoMap",			"sv_noautomapallies", "NoYes"
-	MOToolTipOption "$GMPLYMNU_ALLOWSPYING", "Allows a player to become a stalker",				"sv_disallowspying", "NoYes"
-	MOToolTipOption "$GMPLYMNU_CHASECAM", "Allows a player to pretend that they're in Sonic Robo Blast 2",				"sv_chasecam", "YesNo"
+	MOToolTipOption "$GMPLYMNU_ALLOWCROUCH", "$OB_MO_GAMEFLAGS_LEGPROBLEMS_TOOLTIP",				"sv_crouch", "JumpCrouchFreeLook"
+	MOToolTipOption "$GMPLYMNU_ALLOWFREELOOK", "$OB_MO_GAMEFLAGS_NOFREELOOK_TOOLTIP", 		"sv_freelook", "JumpCrouchFreeLook"
+	MOToolTipOption "$GMPLYMNU_ALLOWFOV", "$OB_MO_GAMEFLAGS_ALLOWFOV_TOOLTIP",				"sv_nofov", "NoYes"
+	MOToolTipOption "$GMPLYMNU_BFGFREEAIM", 	"$OB_MO_GAMEFLAGS_BFGFREEAIM_TOOLTIP",		"sv_nobfgaim", "NoYes"
+   MOToolTipOption "$GMPLYMNU_ALLOWAUTOMAP", "$OB_MO_GAMEFLAGS_ALLOWAUTOMAP_TOOLTIP",			"sv_noautomap", "NoYes"
+	MOToolTipOption "$GMPLYMNU_AUTOMAPALLIES", "$OB_MO_GAMEFLAGS_SEEFRIENDSONAUTOMAP_TOOLTIP",			"sv_noautomapallies", "NoYes"
+	MOToolTipOption "$GMPLYMNU_ALLOWSPYING", "$OB_MO_GAMEFLAGS_ALLOWSPYING_TOOLTIP",				"sv_disallowspying", "NoYes" // haha funni nuke dukem joke 
+	MOToolTipOption "$GMPLYMNU_CHASECAM", "$OB_MO_GAMEFLAGS_CHASECAM_TOOLTIP",				"sv_chasecam", "YesNo"
 }
 // https://www.youtube.com/watch?v=fQVhppRP4Wo
 OptionMenu "MOGameplayCheatLike"
@@ -309,7 +308,7 @@ Statictext ""
 Option "SV_CHEATS",			"SV_CHEATS", "YesNo"
 	Option "$GMPLYMNU_INFINITEAMMO",			"sv_infiniteammo", "YesNo"
 	Option "$GMPLYMNU_INFINITEINVENTORY",		"sv_infiniteinventory", "YesNo"
-   MOToolTipOption "Unlimited Pickup", "Allows a player to pick up ammo past the normal maximum amount for that ammo type",			"sv_unlimited_pickup", "NoYes"
+   MOToolTipOption "$OB_MO_CHEATLIKE_ENDLESSPICKUPS", "Allows a player to pick up ammo past the normal maximum amount for that ammo type",			"sv_unlimited_pickup", "NoYes"
 MOToolTipScaleSlider "Air Control", "Allows a player to control their movement in the air, like in Zandronum",			"sv_aircontrol",  0.00, 30.00, 0.10, "None, like in Doom", "None, you're fricking dead if you're in the air."
 ScaleSlider "Fast weapons",			"sv_fastweapons", 0, 2, 1, "None"
 ScaleSlider "Speed Shoes",			"turbo", 100, 255, 10, "None"
