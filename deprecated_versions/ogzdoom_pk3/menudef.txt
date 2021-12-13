@@ -1,3 +1,5 @@
+// WARNING!!!!!!!!!
+// This is for the original ZDDOM. Don't expect this to be updated anytime soon, or ever.
 /*
 	Menu Overhaul, made by Jakie
 	Based off Snap's and Square's menus.
