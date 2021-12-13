@@ -150,9 +150,9 @@ OptionMenu "MOGameplay"
 Title "$OB_MO_GAMEPLAYTITLE"
 Statictext "$OB_MO_FLAGS_COMPAT_TITLE", White
 Submenu "$OB_MO_COMPATIBILITYOPTIONS", "CompatibilityOptions"
-Submenu "Gameplay Flags", "MOFlagforGameplay"
+Submenu "Gameplay Flags", "GameplayOptions"
 Statictext ""
-	Submenu "$OPTMNU_PLAYER",			"NewPlayerMenu"
+	Submenu "$OPTMNU_PLAYER",			"PlayerMenu"
 Statictext ""
 	Submenu "$OPTMNU_NETWORK",			"NetworkOptions"
 Statictext ""
@@ -239,116 +239,7 @@ OptionValue "BotNextColor"
 }
 
 
-
-OptionMenu "MOFlagforGameplay"
-{
-Class "MOToolTipMenu"
-Title "Gameplay Flags"
-Statictext ""
-Statictext "General Options", White
-SubMenu "Allows and Don't Allows", "MOGameplayAllows"
-SubMenu "Cheat-Like", "MOGameplayCheatLike"
-SubMenu "no", "MOGameplayNoes"
-SubMenu "Other Options", "MOGameplayOtherOptions"
-Statictext ""
-SubMenu "Deathmatch Flags", "MODMGamplayFlags"
-SubMenu "Co-op Flags", "CoopOptions"
-
-}
-
-
-
-Optionmenu "MODMGamplayFlags"
-{
-Title "Deathmatch Options"
-Statictext ""
-Statictext ""
-	ScaleSlider "Frag Limit",			"fraglimit", 0,1000, 5, "None"
-	ScaleSlider "Time Limit (Minutes)",			"timelimit", 0, 600, 1, "None"
-	Option "$GMPLYMNU_TEAMPLAY",				"teamplay",	"OnOff"
-	Slider	"$GMPLYMNU_TEAMDAMAGE",				"teamdamage", 0, 1, 0.05,2
-	Option "$GMPLYMNU_WEAPONSSTAY",				"sv_weaponstay", "YesNo"
-	Option "$GMPLYMNU_ALLOWPOWERUPS",			"sv_noitems", "NoYes"
-	Option "$GMPLYMNU_ALLOWHEALTH",				"sv_nohealth", "NoYes"
-	Option "$GMPLYMNU_ALLOWARMOR",				"sv_noarmor", "NoYes"
-	Option "$GMPLYMNU_SPAWNFARTHEST",			"sv_spawnfarthest", "YesNo"
-	Option "$GMPLYMNU_SAMEMAP",					"sv_samelevel", "YesNo"
-	Option "$GMPLYMNU_FORCERESPAWN",			"sv_forcerespawn", "YesNo"
-	Option "$GMPLYMNU_ALLOWEXIT",				"sv_noexit", "NoYes"
-	Option "$GMPLYMNU_BARRELSRESPAWN",			"sv_barrelrespawn", "YesNo"
-	Option "$GMPLYMNU_RESPAWNPROTECTION",		"sv_respawnprotect", "YesNo"
-	Option "$GMPLYMNU_LOSEFRAG",				"sv_losefrag", "YesNo"
-	Option "$GMPLYMNU_KEEPFRAGS",				"sv_keepfrags", "YesNo"
-	Option "$GMPLYMNU_NOTEAMSWITCH",			"sv_noteamswitch", "YesNo"
-Class "GameplayMenu"
-}
-
-
-
-OptionMenu "MOGameplayAllows"
-{
-Class "MOToolTipMenu"
-Title "Allows and Don't Allows"
-Statictext ""
-Statictext ""
-	MOToolTipOption "$GMPLYMNU_ALLOWSUICIDE", "Allows a player to use the 'Kill'  command. In case they want to have a stofe.",		"sv_disallowsuicide", "NoYes"
-	Option "$GMPLYMNU_ALLOWJUMP",  "sv_jump", "JumpCrouchFreeLook"
-	Option "$GMPLYMNU_ALLOWCROUCH", "Turing this off will make you have serious leg problems, turn off for a more vanilla feel.",				"sv_crouch", "JumpCrouchFreeLook"
-	Option "$GMPLYMNU_ALLOWFREELOOK", "Turing this off will break your spine, if you're play a Doom-based game, turn this off for a more vanilla feel.", 		"sv_freelook", "JumpCrouchFreeLook"
-	Option "$GMPLYMNU_ALLOWFOV", "Allows a player to change their FOV.",				"sv_nofov", "NoYes"
-	Option "$GMPLYMNU_BFGFREEAIM", 	"Allows a player to fire the BFG up or down.",		"sv_nobfgaim", "NoYes"
-   Option "$GMPLYMNU_ALLOWAUTOMAP", "Allows a player view their AutoMap.",			"sv_noautomap", "NoYes"
-	Option "$GMPLYMNU_AUTOMAPALLIES", "Allows a player to see allies on their AutoMap",			"sv_noautomapallies", "NoYes"
-	Option "$GMPLYMNU_ALLOWSPYING", "Allows a player to become a stalker",				"sv_disallowspying", "NoYes"
-	Option "$GMPLYMNU_CHASECAM", "Allows a player to pretend that they're in Sonic Robo Blast 2",				"sv_chasecam", "YesNo"
-}
 // https://www.youtube.com/watch?v=fQVhppRP4Wo
-OptionMenu "MOGameplayCheatLike"
-{
-Class "MOToolTipMenu"
-Title "Cheat-like"
-Statictext ""
-Statictext ""
-Option "SV_CHEATS",			"SV_CHEATS", "YesNo"
-	Option "$GMPLYMNU_INFINITEAMMO",			"sv_infiniteammo", "YesNo"
-	Option "$GMPLYMNU_INFINITEINVENTORY",		"sv_infiniteinventory", "YesNo"
-   Option "Unlimited Pickup", "Allows a player to pick up ammo past the normal maximum amount for that ammo type",			"sv_unlimited_pickup", "NoYes"
-ScaleSlider "Air Control", "Allows a player to control their movement in the air, like in Zandronum",			"sv_aircontrol",  0.00, 30.00, 0.10, "None, like in Doom", "None, you're fricking dead if you're in the air."
-ScaleSlider "Fast weapons",			"sv_fastweapons", 0, 2, 1, "None"
-ScaleSlider "Speed Shoes",			"turbo", 100, 255, 10, "None"
-
-}
-
-OptionMenu "MOGameplayNoes"
-{
-Class "MOToolTipMenu"
-Title "no"
-Statictext ""
-Statictext ""
-	Option "$GMPLYMNU_NOMONSTERS",				"sv_nomonsters", "YesNo"
-	Option "$GMPLYMNU_NOMONSTERSTOEXIT",		"sv_killallmonsters", "YesNo"
-	Option "$GMPLYMNU_MONSTERSRESPAWN",			"sv_monsterrespawn", "YesNo"
-	Option "$GMPLYMNU_NORESPAWN",				"sv_norespawn", "YesNo"
-	Option "$GMPLYMNU_NOAUTOAIM",				"sv_noautoaim", "NoYes"
-	Option "Don't count dDamage_End monsters", "This makes monsters don't get tallied if they're in a sector like E1M8's ending.",		"sv_nocountendmonst", "NoYes"
-
-}
-
-Optionmenu "MOGameplayOtherOptions"
-{
-Class "MOToolTipMenu"
-Title "Other Options"
-Statictext ""
-Statictext ""
-	Option "$GMPLYMNU_FALLINGDAMAGE",			"sv_fallingdamage", "FallingDM"
-	Option "$GMPLYMNU_ALWAYSSPAWNMULTI",		"sv_alwaysspawnmulti", "YesNo"
-	Option "$GMPLYMNU_ITEMSRESPAWN",			"sv_itemrespawn", "YesNo"
-	Option "$GMPLYMNU_SUPERRESPAWN",			"sv_respawnsuper", "YesNo"
-	Option "$GMPLYMNU_FASTMONSTERS",			"sv_fastmonsters", "YesNo"
-	Option "$GMPLYMNU_INSTANTREACTION",			"sv_instantreaction", "YesNo"
-	Option "$GMPLYMNU_SMARTAUTOAIM",			"sv_smartaim", "SmartAim"
-    	Option "$GMPLYMNU_KILLBOSSSPAWNS",			"sv_killbossmonst", "YesNo"
-}
 // https://youtu.be/Nnjwxz7B-OU
 
 
@@ -385,41 +276,31 @@ Submenu "Automap Options", "AutomapOptions"
 
 Optionmenu "MODisplay"
 {
-Title "$OB_MO_DISPLAY_TITLE"
-StaticText ""
-
-	Option "$VIDMNU_FULLSCREEN",		"vid_fullscreen", "YesNo"
-
+Title "$VIDMNU_TITLE"
+	
+	Option "$VIDMNU_FULLSCREEN",		"fullscreen", "YesNo"
 	IfOption(Mac)
 	{
 		Option "$VIDMNU_HIDPI",			"vid_hidpi", "YesNo"
 	}
-	IfOption(Windows)
-	{
-		Option "$DSPLYMNU_GPUSWITCH",			vid_gpuswitch, "GPUSwitch"
-	}
-
+	Option "$VIDMNU_ASPECTRATIO",		"menu_screenratios", "Ratios"
 	Option "$VIDMNU_FORCEASPECT",		"vid_aspect", "ForceRatios"
-	Option "$VIDMNU_CROPASPECT",		"vid_cropaspect", "CropAspect"
-	Option "$VIDMNU_SCALEMODE",			"vid_scalemode", "ScaleModes"
-	Slider "$VIDMNU_SCALEFACTOR",		"vid_scalefactor", 0.25, 2.0, 0.25, 2
-StaticText ""
-	StaticText "$OB_MO_DISPLAY_FPSCONTROLLER"
-	Option "$DSPLYMNU_VSYNC",					"vid_vsync", "OnOff"
-	Option "$VIDMNU_MAXFPS",					"vid_maxfps", "MaxFps"
-	Option "$DSPLYMNU_CAPFPS",					"cl_capfps", "OffOn"
-	Option "FPS Counter",					"vid_fps", "OffOn"
-StaticText ""
-	StaticText "$OB_MO_DISPLAY_RESOLUTION"
-	TextField "$VIDMNU_CUSTOMX", menu_resolution_custom_width
-	TextField "$VIDMNU_CUSTOMY", menu_resolution_custom_height
-	Option "$VIDMNU_USELINEAR", "vid_scale_linear", "YesNo"
-	StaticText ""
-	Command "$VIDMNU_APPLYW", "menu_resolution_commit_changes 0"
-	Command "$VIDMNU_APPLYFS", "menu_resolution_commit_changes 1"
-	StaticText ""
-
-	SubMenu "$VIDMNU_RESPRESET", CustomResolutionMenu
+	Option "$VIDMNU_5X4ASPECTRATIO",	"vid_tft", "YesNo"
+	StaticText " "
+	ScreenResolution "res_0"
+	ScreenResolution "res_1"
+	ScreenResolution "res_2"
+	ScreenResolution "res_3"
+	ScreenResolution "res_4"
+	ScreenResolution "res_5"
+	ScreenResolution "res_6"
+	ScreenResolution "res_7"
+	ScreenResolution "res_8"
+	ScreenResolution "res_9"
+	StaticTextSwitchable "$VIDMNU_ENTERTEXT", "", "VMEnterText"
+	StaticText " "
+	StaticTextSwitchable "$VIDMNU_TESTTEXT1", "$VIDMNU_TESTTEXT2", "VMTestText"
+	class VideoModeMenu
 
 
 
@@ -489,65 +370,6 @@ Option "$DSPLYMNU_TELEZOOM",				"telezoom", "OnOff"
 	Option "$DSPLYMNU_PUFFTYPE",				"cl_pufftype", "PuffTypes"
 	Option "Particles",                          "r_particles", "OnOff"
 	Slider "$DSPLYMNU_MAXPARTICLES",			"r_maxparticles", 100, 10000, 100, 0
-}
-
-
-
-
-
-Optionmenu "MOHUDOptions"
-{ 
-	Title "$HUDMNU_TITLE"
-	Submenu "$HUDMNU_ALTHUD",				"AltHudOptions"
-	Submenu "$DSPLYMNU_SCOREBOARD", 		"ScoreboardOptions"
-	Submenu "$HUDMNU_FONTOPTIONS",			"FontOptions"
-	StaticText " "
-	StaticText "Crosshair Options", White
-	Option "$HUDMNU_CROSSHAIRON",			"crosshairon", "OnOff"
-	Option "$HUDMNU_CROSSHAIR",				"crosshair", "Crosshairs"
-	Option "$HUDMNU_FORCECROSSHAIR",		"crosshairforce", "OnOff"
-	Option "$HUDMNU_GROWCROSSHAIR",			"crosshairgrow", "OnOff"
-	ColorPicker "$HUDMNU_CROSSHAIRCOLOR", 	"crosshaircolor"
-	Option "$HUDMNU_CROSSHAIRHEALTH",		"crosshairhealth", "CrosshairHealthTypes"
-	Slider "$HUDMNU_CROSSHAIRSCALE",		"crosshairscale", 0.0, 2.0, 0.05, 2
-	StaticText " "
-	StaticText "Weapon Bobbing", White
-	Slider "$DSPLYMNU_MOVEBOB",				"movebob", 0, 1.0, 0.05, 2
-	Slider "$DSPLYMNU_STILLBOB",			"stillbob", 0, 1.0, 0.05, 2
-	Slider "$DSPLYMNU_BOBSPEED",			"wbobspeed", 0, 2.0, 0.1
-	Slider "$DSPLYMNU_BOBFIRE",				"wbobfire", 0, 1.0, 0.1
-	StaticText " "
-	StaticText "Other Options", White
-	Slider "$DSPLYMNU_MENUDIM",					"dimamount", 0, 1.0, 0.05, 2
-	ColorPicker "$DSPLYMNU_DIMCOLOR",			"dimcolor"
-	Option "$HUDMNU_NAMETAGS",				"displaynametags", "DisplayTagsTypes"
-	Option "$HUDMNU_NAMETAGCOLOR",			"nametagcolor", "TextColors", "displaynametags"
-	Option "$HUDMNU_OLDOUCH",				"st_oldouch", "OnOff"
-}
-Optionmenu "MOMessageOptions"
-{
-	Title 	"$MSGMNU_TITLE"
-	Option "$OPTMNU_LANGUAGE",					"language", "LanguageOptions"
-	Option "$MSGMNU_SHOWMESSAGES",				"show_messages", "OnOff"
-	Option "$MSGMNU_SHOWOBITUARIES",			"show_obituaries", "OnOff"
-	Option "$MSGMNU_SHOWSECRETS",				"cl_showsecretmessage", "OnOff"
-	Option "$MSGMNU_MESSAGELEVEL", 				"msg", "MessageLevels"
-	Option "$MSGMNU_DEVELOPER", 				"developer", "DevMessageLevels"
-	Option "$MSGMNU_CENTERMESSAGES",			"con_centernotify", "OnOff"
-	Option "$MSGMNU_PULSEMESSAGES",				"con_pulsetext", "OnOff"
-	Option "$MSGMNU_SUBTITLES",					"inter_subtitles", "OnOff"
-	StaticText " "
-	StaticText "$MSGMNU_MESSAGECOLORS", 1
-	StaticText " "
-	Option "$MSGMNU_ITEMPICKUP",				"msg0color", "TextColors"
-	Option "$MSGMNU_OBITUARIES",				"msg1color", "TextColors"
-	Option "$MSGMNU_CRITICALMESSAGES",			"msg2color", "TextColors"
-	Option "$MSGMNU_CHATMESSAGES",				"msg3color", "TextColors"
-	Option "$MSGMNU_TEAMMESSAGES",				"msg4color", "TextColors"
-	Option "$MSGMNU_CENTEREDMESSAGES",			"msgmidcolor", "TextColors"
-	StaticText " "
-	Option "$MSGMNU_SCREENSHOTMESSAGES",		"screenshot_quiet",	"OffOn"
-	Option "$MSGMNU_LONGSAVEMESSAGES",			"longsavemessages",	"OnOff"
 }
 
 
