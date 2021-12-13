@@ -58,6 +58,7 @@ OB_MO_MPSETUP_GAMEMODES = "Game Modes";
 OB_MO_MPSETUP_COOP = "Co-op";
 OB_MO_MPSETUP_DEATHMATCH = "Deathmatch";
 OB_MO_MPSETUP_BOTSTITLE = "ZCajun Bots";
+OB_MP_MPSETUP_BOT_COLOR = "Next Bot's color";
 OB_MO_MPSETUP_ADDBOT = "Add Bot";
 OB_MO_MPSETUP_REMOVEALLBOTS = "Remove All Bots";
 OB_MO_MPSETUP_LISTBOTS = "List Bots";
@@ -66,7 +67,27 @@ OB_MO_MPSETUP_BBA = "BloodBath Announcer";
 OB_MO_MPSETUP_KILLINGSPREES = "Killing sprees messages";
 OB_MO_MPSETUP_MULTIKILLS = "Multikills messages";
 
-OB_MO_MPSETUP_STARTGAME = "Start Game!";
+OB_MO_MPSETUP_STARTGAME = "Start match!";
+
+// Bot colors
+OB_MP_MPSETUP_BOT_COLOR_GREEN = "Green";
+OB_MP_MPSETUP_BOT_COLOR_GRAY = "Gray";
+OB_MP_MPSETUP_BOT_COLOR_INDIGO = "Indigo";   // Who made up this name? Mr old timely guy, can you please answer?
+OB_MP_MPSETUP_BOT_COLOR_DEEPRED = "Deep Red";
+OB_MP_MPSETUP_BOT_COLOR_WHITE = "White"; // I could really use some steak right now.
+OB_MP_MPSETUP_BOT_COLOR_BIGHTBROWN = "Bright Brown"; // Isn't that just tan?
+OB_MP_MPSETUP_BOT_COLOR_RED = "Red";
+OB_MP_MPSETUP_BOT_COLOR_BLUE = "Blue";
+OB_MP_MPSETUP_BOT_COLOR_DARKBLUE = "Dark Blue";
+OB_MP_MPSETUP_BOT_COLOR_YELLOW = "Yellow";
+OB_MP_MPSETUP_BOT_COLOR_BONE = "Bleached Bone"; // Bleached Bone? Yeah, I put bleach all over my bones.
+OB_MP_MPSETUP_BOT_COLOR_USEBOTCOLOR = "Use Bot's defined color";
+
+
+
+
+
+
 
 // Deathmatch Flags menu
 OB_MO_DEATHMATCHFLAG_FRAGLIMIT = "Frag Limit";

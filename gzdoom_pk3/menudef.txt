@@ -1,3 +1,5 @@
+// geeeezzzz duuuuumm 
+
 /*
 	Menu Overhaul, made by Jakie
 	Based off Snap's and Square's menus.
@@ -8,7 +10,7 @@ LISTMENU "MainMenu"
 AnimatedTransition
 	IfGame(Doom, Chex)
 	{
-		LineSpacing 16	// This must account for some single-graphic replacements, so it cannot be widened
+		LineSpacing 16	// This must account for some single-graphic replacements, so it cannot be widened, LOL
 		StaticPatch 94, 2, "M_DOOM"
 		Position 97, 72
 		IfOption(ReadThis)
@@ -204,7 +206,7 @@ Statictext "$OB_MO_MPSETUP_BOTSTITLE", White
 Command "$OB_MO_MPSETUP_ADDBOT", "addbot"
 Command "$OB_MO_MPSETUP_REMOVEALLBOTS", "removebots"
 Command "$OB_MO_MPSETUP_LISTBOTS", "listbots"
-Option "Next Bot's color", "bot_next_color", "BotNextColor"
+Option "$OB_MP_MPSETUP_BOT_COLOR", "bot_next_color", "BotNextColor"
 Statictext ""
 Statictext ""
 Statictext "$OB_MO_OTHEROPTIONS", White
@@ -220,18 +222,18 @@ Command "Start Game! ", "map *"
 
 OptionValue "BotNextColor"
 {
-	0, "Green"
-	1, "Gray"
-	2, "Indigo"
-	3, "Deep Red"
-	4, "White"
-	5, "Bright Brown"
-	6, "Red"
-	7, "Blue"
-	8, "Dark Blue"
-	9, "Yellow"
-	10, "Bleached Bone"
-	11, "Use Bot's defined color"
+	0, "$OB_MP_MPSETUP_BOT_COLOR_GREEN"
+	1, "$OB_MP_MPSETUP_BOT_COLOR_GRAY"
+	2, "$OB_MP_MPSETUP_BOT_COLOR_INDIGO"
+	3, "$OB_MP_MPSETUP_BOT_COLOR_DEEPRED"
+	4, "$OB_MP_MPSETUP_BOT_COLOR_WHITE"
+	5, "$OB_MP_MPSETUP_BOT_COLOR_BIGHTBROWN"
+	6, "$OB_MP_MPSETUP_BOT_COLOR_RED"
+	7, "$OB_MP_MPSETUP_BOT_COLOR_BLUE"
+	8, "$OB_MP_MPSETUP_BOT_COLOR_DARKBLUE"
+	9, "$OB_MP_MPSETUP_BOT_COLOR_YELLOW"
+	10, "$OB_MP_MPSETUP_BOT_COLOR_BONE"
+	11, "$OB_MP_MPSETUP_BOT_COLOR_USEBOTCOLOR"
 }
 
 
