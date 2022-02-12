@@ -12,7 +12,5 @@ You MAY use, copy, modify, merge, publish, distribute, and/or sublicense this wo
 
 - Your work must comply with the original license provided by the original developer.
 
-- You may not claim that you made this work.
-
 - All derivative works must credit the original authors.
 
