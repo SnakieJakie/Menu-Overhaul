@@ -1,7 +1,0 @@
-addkeysection "Menu Overhaul Key Binds" TDBOTMENUKEYS
-addmenukey "Open Controls Menu" "openmenu MOControls"
-addmenukey "Open Gameplay Menu" "openmenu MOGameplay"
-addmenukey "Open Video Menu" "openmenu MOVideoSettings"
-addmenukey "Open Sound Menu" "openmenu SoundOptions"
-addmenukey "Open Debug Menu" "openmenu MODebug"
-addmenukey "Open Other Menu" "openmenu MOMenuOptions"
